@@ -2,11 +2,15 @@
 import math
 
 class Bus:
+
     def __init__(self, max_seats, max_speed):
+
         if max_seats <= 0:
             raise ValueError("max_seats должен быть положительным")
+
         if max_speed < 0:
             raise ValueError("max_speed не может быть отрицательной")
+
         self.max_seats = int(max_seats)
         self.max_speed = float(max_speed)
         self.speed = 0.0
@@ -18,59 +22,82 @@ class Bus:
         self.has_free_seats = any(v is None for v in self.seat_map.values())
 
     def board(self, names):
+
         if self.speed > 0:
             raise RuntimeError("Нельзя сажать пассажиров на ходу. Сначала остановите автобус (speed = 0).")
+
         if isinstance(names, str):
             names = [names]
         seated = []
         not_seated = []
+
         for name in names:
             free_seat = None
+
             for seat, occupant in self.seat_map.items():
+
                 if occupant is None:
                     free_seat = seat
                     break
+
             if free_seat is None:
                 not_seated.append(name)
+
             else:
                 self.seat_map[free_seat] = name
                 self.passengers.append(name)
                 seated.append((name, free_seat))
         self._update_free_seats()
+
         return seated, not_seated
 
     def alight(self, names):
+
         if self.speed > 0:
             raise RuntimeError("Нельзя высаживать пассажиров на ходу. Сначала остановите автобус (speed = 0).")
+
         if isinstance(names, str):
             names = [names]
         removed = []
         not_found = []
+
         for name in names:
             found_seat = None
+
             for seat, occupant in self.seat_map.items():
+
                 if occupant == name:
                     found_seat = seat
                     break
+
             if found_seat is None:
                 not_found.append(name)
+
             else:
                 self.seat_map[found_seat] = None
+
                 try:
                     self.passengers.remove(name)
+
                 except ValueError:
                     pass
+
                 removed.append((name, found_seat))
+
         self._update_free_seats()
+
         return removed, not_found
 
     def change_speed(self, delta):
         new_speed = self.speed + float(delta)
+
         if new_speed < 0:
             new_speed = 0.0
+
         if new_speed > self.max_speed:
             new_speed = self.max_speed
         self.speed = new_speed
+
         return self.speed
 
     def __contains__(self, name):
@@ -78,13 +105,16 @@ class Bus:
 
     def __iadd__(self, other):
         self.board(other)
+
         return self
 
     def __isub__(self, other):
         self.alight(other)
+
         return self
 
     def __repr__(self):
+
         return (f"Bus(speed={self.speed}, seats={self.max_seats}, "
                 f"passengers={len(self.passengers)})")
 
@@ -96,6 +126,7 @@ if __name__ == "__main__":
     bus = Bus(max_seats, max_speed)
 
     print("\nСценарий: сначала посадка, затем движение (speed>0), затем остановка (speed=0), затем высадка и новая посадка.")
+
     while True:
         print("\nДоступные команды:")
         print("  1  - посадить (только когда speed == 0)")
@@ -112,10 +143,12 @@ if __name__ == "__main__":
         elif cmd == "1":
             names = input("Фамилии через запятую: ").strip()
             names = [n.strip() for n in names.split(",") if n.strip()]
+
             try:
                 seated, not_seated = bus.board(names)
                 print("Посадили:", seated)
                 print("Не смогли сесть:", not_seated)
+
             except RuntimeError as e:
                 print("Ошибка:", e)
 

@@ -11,34 +11,34 @@
 # зависимости от регистра. Пустую строку считать
 # палиндромом
 
-class SuperStr(str):  # 1
+class SuperStr(str):
 
-    def is_repeatance(self, s):  # 2
-        if not s:  # 3
-            return False  # 4
-        if len(self) % len(s) != 0:  # 5
-            return False  # 6
-        if s * (len(self) // len(s)) == self:  # 7
-            return True  # 8
-        return False  # 9
+    def is_repeatance(self, s):
+        if not s:
+            return False
+        if len(self) % len(s) != 0:
+            return False
+        if s * (len(self) // len(s)) == self:
+            return True
+        return False
 
-    def is_palindrom(self):  # 10
-        if len(self) == 0:  # 11
-            return True  # 12
-        normalized = self.lower()  # 13
-        return normalized == normalized[::-1]  # 14
+    def is_palindrom(self):
+        if len(self) == 0:
+            return True
+        normalized = self.lower()
+        return normalized == normalized[::-1]
 
 
-# --- Примеры использования ---  # 15
-word1 = SuperStr("abcabcabc")  # 16
-print(word1.is_repeatance("abc"))  # True  # 17
-print(word1.is_repeatance("ab"))   # False  # 18
+# --- Примеры использования ---
+word1 = SuperStr("abcabcabc")
+print(word1.is_repeatance("abc"))
+print(word1.is_repeatance("ab"))
 
-word2 = SuperStr("Level")  # 19
-print(word2.is_palindrom())  # True  # 20
+word2 = SuperStr("Level")
+print(word2.is_palindrom())
 
-word3 = SuperStr("Привет")  # 21
-print(word3.is_palindrom())  # False  # 22
+word3 = SuperStr("Привет")
+print(word3.is_palindrom())
 
-empty_str = SuperStr("")  # 23
-print(empty_str.is_palindrom())  # True  # 24
+empty_str = SuperStr("")
+print(empty_str.is_palindrom())

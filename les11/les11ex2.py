@@ -21,7 +21,11 @@ class Math:
         print(f"Произведение: {result}")  # Выводим результат
 
     def division(self, a, b):
-        if b == 0:  # Проверяем, чтобы не делить на 0
+        try:
+            result = a / b
+            print(f"Частное: {result}")
+
+        except ZeroDivisionError:
             print("Ошибка: Деление на ноль невозможно!")
         else:
             result = a / b  # Считаем частное
@@ -31,8 +35,21 @@ class Math:
 math_obj = Math()
 
 # Пользовательский ввод
-num1 = float(input("Введите первое число: "))
-num2 = float(input("Введите второе число: "))
+while True:
+    try:
+        num1 = float(input("Введите первое число: "))
+        break
+
+    except ValueError:
+        print("Ошибка: нужно ввести число!")
+
+while True:
+    try:
+        num2 = float(input("Введите второе число: "))
+        break
+
+    except ValueError:
+        print("Ошибка: нужно ввести число!")
 
 # Вызываем методы и показываем результаты
 math_obj.addition(num1, num2)

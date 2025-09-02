@@ -29,6 +29,13 @@ class Car:
         self.color = color
         print(f"Цвет автомобиля установлен: {self.color}")
 
+# Метод __str__
+    def __str__(self):
+        return f"Цвет: {self.color}, Тип: {self.car_type}, Год: {self.year}"
+
+# # Метод __repr__
+#     def __repr__(self):
+#         return f"Car(color='{self.color}', car_type='{self.car_type}', year={self.year})"
 
 color = input("Введите цвет автомобиля: ")
 car_type = input("Введите тип автомобиля (седан, хэтчбек, внедорожник и т.д.): ")
@@ -37,13 +44,14 @@ while True:
     try:
         year = int(input("Введите год выпуска автомобиля (число): "))
         break
+
     except ValueError:
         print("Ошибка: введите год числом!")
 
 my_car = Car(color, car_type, year)
 
 print("\nМашина создана!")
-print("Свойства:", my_car.color, my_car.car_type, my_car.year)
+print(my_car)
 
 # --- Интерактивная панель ---
 while True:

@@ -17,5 +17,6 @@ user_input = input("Введите вкус газировки (оставьте
 
 if user_input == "":
     soda = Soda()
+
 else:
     soda = Soda(user_input)

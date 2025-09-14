@@ -32,7 +32,7 @@ class AnimalFactory:
                 return Cat()
             else:
                 raise ValueError(f"Неизвестный тип животного: {animal_type}")
-        except Exception as e:
+        except (TypeError, ValueError) as e:
             print(f"Ошибка при создании животного: {e}")
             return None
 
